@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuration Viewer</title>
+</head>
+<body>
+
+<h2>Configuration Viewer</h2>
+
+<label for="configId">Enter Config ID:</label>
+<input type="text" id="configId" placeholder="Enter Config ID">
+<br><br>
+<button onclick="fetchConfiguration()">Submit</button>
+
+<div id="result"></div>
+
+<script>
+    function fetchConfiguration() {
+        var configId = document.getElementById("configId").value;
+
+        // Make a request to your backend endpoint to fetch data based on configId
+        // Example using Fetch API
+        fetch(`http://localhost:8080/api/configurations/${configId}`)
+            .then(response => response.json())
+            .then(data => displayResult(data))
+            .catch(error => console.error('Error:', error));
+    }
+
+    function displayResult(data) {
+        var resultDiv = document.getElementById("result");
+        resultDiv.innerHTML = "<h3>Result:</h3>";
+
+        // Assuming the backend returns a 2D array as 'data'
+        for (var i = 0; i < data.length; i++) {
+            var row = data[i];
+            var rowString = "[" + row.join(", ") + "]";
+            resultDiv.innerHTML += rowString + "<br>";
+        }
+    }
+</script>
+
+</body>
+</html>

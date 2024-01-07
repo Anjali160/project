@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Configuration Remark</title>
+</head>
+<body>
+
+<h2>Update Configuration Remark</h2>
+
+<label for="configId">Enter Config ID:</label>
+<input type="text" id="configId" placeholder="Enter Config ID"><br><br>
+
+<label for="remark">Enter Remark:</label>
+<textarea id="remark" placeholder="Enter Remark"></textarea><br><br>
+
+<button onclick="updateRemark()">Submit</button>
+
+<script>
+    function updateRemark() {
+        var configId = document.getElementById("configId").value;
+        var remark = document.getElementById("remark").value;
+
+        // Make a request to your backend PUT endpoint to update the remark
+        // Example using Fetch API
+        fetch(`http://localhost:8080/api/configurations/${configId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                remark: remark
+            }),
+        })
+        .then(response => response.json())
+        .then(data => alert(data.message)) // You can replace this with a better way of displaying success message
+        .catch(error => console.error('Error:', error));
+    }
+</script>
+
+</body>
+</html>
